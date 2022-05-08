@@ -1,0 +1,53 @@
+- content_for :title do
+  Location Edit - Tarkov MAP
+
+- if @location.errors.any?
+  %ul.alert.alert-danger
+    - @location.errors.full_messages.each do |message|
+      %li.ms-3.mt-1.mb-1
+        = message
+
+%h2.mb-3 Location Edit
+
+.d-flex.flex-row-reverse
+  = link_to "Return", location_path(@location.map), class: "btn btn-success mb-3"
+
+= form_with model: @location, url: location_path, method: :patch, local: true,
+  data: { turbo_confirm: "本当によろしいですか?" }, class: "mb-5" do |form|
+  .mb-3
+    = form.label :x_coordinate, "X座標", class: "mb-2"
+    = form.text_field :x_coordinate, class: "form-control"
+  .mb-3
+    = form.label :y_coordinate, "Y座標", class: "mb-2"
+    = form.text_field :y_coordinate, class: "form-control"
+  .mb-3
+    = form.label :loot_container_id, "ルートコンテナの種類" ,class: "mb-2 d-block"
+    = form.select :loot_container_id,
+      LootContainer.all.order(:id).map { |loot_container| [loot_container.name, loot_container.id] },
+      {}, { class: "form-select" }
+  - if @location.distant_view.attached?
+    .mb-3
+      %p.mb-1 現在の遠景画像
+      = image_tag @location.distant_view, class: "mw-100"
+  .mb-3
+    = form.label :distant_view, "遠景画像",class: "mb-2"
+    = form.file_field :distant_view, class: "form-control"
+  - if @location.near_view.attached?
+    .mb-3
+      %p.mb-1 現在の近景画像
+      = image_tag @location.near_view, class: "mw-100"
+  .mb-3
+    = form.label :near_view, "近景画像", class: "mb-2"
+    = form.file_field :near_view, class: "form-control"
+  - if @location.animation_gif.attached?
+    .mb-3
+      %p.mb-1 現在のアニメーションGIF
+      = image_tag @location.animation_gif, class: "mw-100"
+  .mb-3
+    = form.label :animation_gif, "GIF画像",
+      class: "mb-2"
+    = form.file_field :animation_gif, class: "form-control"
+    %span.form-text.d-block.mt-1 ※ルートコンテナの種類が「Buried Barrel cache」又は「Ground cache」のみ添付してください。
+
+  = form.submit "変更", class: "btn btn-warning text-black mt-2 me-4"
+  = button_to "削除", location_path, method: :delete, class: "btn btn-danger text-black mt-2"

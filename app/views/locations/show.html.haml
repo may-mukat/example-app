@@ -1,0 +1,14 @@
+- content_for :title do
+  = "#{@map.name} - TarkovMAP"
+
+- content_for :map_view do
+  #view
+  %input{id: "location_data_json", type: "hidden", value: @location_data_json}
+
+  :javascript
+    if (window.name != "true") {
+      window.name = "true"
+      location.reload()
+    } else {
+      window.name = ""
+    }

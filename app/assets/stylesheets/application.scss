@@ -1,0 +1,67 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+// Custom bootstrap variables must be set or imported *before* bootstrap.
+
+.bg-black { background: #000; }
+.text-black { color: #000; }
+
+.text-gold-gradient {
+  color: #ffd700;
+  background: -webkit-linear-gradient(top, #ffd520 0%, #b8860b 25%, #808000 50%, #556b2f 100%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.map_image {
+  overflow: auto;
+  flex: 1;
+  position: absolute;
+}
+
+.location_ {
+  &view {
+    background: black;
+    width: 600px;
+    overflow-y: scroll;
+    flex: 2;
+    position: absolute;
+    left: 0;
+    z-index: 3;
+  }
+  &icon {
+    position: absolute;
+    z-index: 2;
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 1);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #999;
+  }
+}
+
+.btn_reset {
+  padding: 0;
+  border: none;
+  background: transparent;
+}

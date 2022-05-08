@@ -1,0 +1,22 @@
+- content_for :title do
+  Loot Container Create - Tarkov MAP
+
+- if @container.errors.any?
+  %ul.alert.alert-danger
+    - @container.errors.full_messages.each do |message|
+      %li.ms-3.mt-1.mb-1
+        = message
+
+%h1.mb-3 Create Loot Container
+
+.d-flex.flex-row-reverse
+  = link_to "Return", admin_loot_containers_path, class: "btn btn-success mb-3"
+
+= form_with model: @container, url: admin_loot_containers_path, local: true do |form|
+  .mb-3
+    = form.label :name, "名称", class: "mb-2"
+    = form.text_field :name, class: "form-control"
+  .mb-3
+    = form.label :container_image, class: "mb-2"
+    = form.file_field :container_image, class: "form-control"
+  = form.submit "登録する", class: "btn btn-primary"

@@ -1,0 +1,26 @@
+- content_for :title do
+  Story Map List - Tarkov MAP
+
+%h2 Story Map List
+
+.text-end.mb-3
+  = link_to "Map Create", new_admin_map_path, class: "btn btn-primary"
+
+%table.table.table-hover
+  %thead.thead-default
+    %tr
+      %th.align-middle.col-1.text-center.border-white.text-white
+        = Map.human_attribute_name(:id)
+      %th.align-middle.border-white.text-white
+        = Map.human_attribute_name(:name)
+      %th.text-white
+  %tbody
+    - @maps.each do |map|
+      %tr
+        %td.align-middle.col-1.text-center
+          = link_to map.id, admin_map_path(map),
+            class: "d-block w-100 h-100 text-decoration-none text-secondary"
+        %td.align-middle
+          = link_to map.name, admin_map_path(map),
+            class: "d-block w-100 h-100 text-decoration-none text-secondary"
+        %td

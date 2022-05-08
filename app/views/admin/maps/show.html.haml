@@ -1,0 +1,40 @@
+- content_for :title do
+  Story Map description - Tarkov MAP
+
+%h2.mb-3 Story Map description
+
+.d-flex.flex-row-reverse
+  = link_to "Return", admin_maps_path, class: "btn btn-success mb-3"
+
+%table.table.table-hover.mb-4
+  %tbody
+    %tr
+      %th.py-3.col-2.align-middle.text-secondary
+        = Map.human_attribute_name(:id)
+      %td.py-3.align-middle.text-secondary
+        = @map.id
+    %tr
+      %th.py-3.col-2.align-middle.text-secondary
+        = Map.human_attribute_name(:name)
+      %td.py-3.align-middle.text-secondary
+        = @map.name
+    %tr
+      %th.py-3.col-2.align-middle.text-secondary
+        = Map.human_attribute_name(:created_at)
+      %td.py-3.align-middle.text-secondary
+        = @map.created_at
+    %tr
+      %th.py-3.col-2.align-middle.text-secondary
+        = Map.human_attribute_name(:updated_at)
+      %td.py-3.align-middle.text-secondary
+        = @map.updated_at
+    - if @map.map_image.attached?
+      %tr
+        %td.align-middle.text-secondary{ colspan: "2" }
+          = image_tag @map.map_image, class: "mw-100"
+
+= button_to "編集", edit_admin_map_path(@map), method: :get,
+  class: "btn btn-warning text-black me-3 float-start"
+= button_to "削除", admin_map_path, method: :delete,
+  class: "btn btn-danger text-black",
+  form: { data: { turbo_confirm: "ユーザー「#{@map.name}」を削除します。よろしいですか？" } }

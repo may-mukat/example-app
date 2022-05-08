@@ -1,0 +1,22 @@
+%h1 Tarkov Map
+.mt-3.mb-5
+  .mb-1
+    %span.text-secondary 当サイトは、
+    %span.fw-bold.text-secondary BATTLESTATE GAMES
+    %span.text-secondary が開発・提供するオンライン一人称アクション RPG/シミュレーター
+    %span.fw-bold.text-secondary Escape from Tarkov
+    %span.text-secondary のマップ情報の提供を目的としています。
+  .mb-1
+    %span.text-secondary Story Location ListからStory Locationを選ぶことで、マップを確認することができます。
+  .mb-1
+    %span.text-secondary 各マップ画面に配置されているLoot Containerアイコンをクリックすると、対象地点の詳細画像を確認することもできます。
+  .mb-1
+    %span.text-secondary なお、マップにLoot Containerの地点登録を行う際には、会員登録が必須となります。
+
+%h2 Story Location List
+%table.table
+  %tbody
+    - @maps.each do |map|
+      %tr
+        %td.align-middle
+          = link_to map.name, location_path(map), class: "text-decoration-none text-secondary"

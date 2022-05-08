@@ -1,0 +1,74 @@
+!!!
+%html
+  %head
+    %title
+      - if content_for?(:title)
+        = yield :title
+      - else
+        Tarkov MAP
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
+    %link{ href: "https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css",
+      rel: "stylesheet", crossorigin: "anonymous",
+      integrity: "sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"}
+    %script{ src: "https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js",
+      crossorigin: "anonymous" }
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = javascript_importmap_tags
+  %body#body.bg-black.text-light
+    %header#header
+      %nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.w100.zindex-fixed
+        .container-fluid
+          = link_to "TarkovMAP", root_path, class: "navbar-brand text-gold-gradient ms-3"
+          #navbar.collapse.navbar-collapse.d-flex
+            %ul.navbar-nav.me-auto
+              %li.nav-item.dropdown
+                %a.btn.btn-link.text-white-50.dropdown-toggle.text-decoration-none{ href: "#",
+                  role: "button", :"data-bs-toggle" => "dropdown", :"aria-expanded" => "false" } Story Location List
+                %ul.dropdown-menu.bg-secondary
+                  - Map.all.order(:id).each do |map|
+                    %li.dropdown-item
+                      = link_to map.name, location_path(map), onclick: "window.name = ''",
+                        class: "text-dark text-decoration-none d-block w-100 h-100"
+            %ul.navbar-nav.ms-auto.me-2
+              - if logged_in?
+                - if is_admin?
+                  %li.nav-item.dropdown
+                    %a.btn.btn-link.text-white-50.dropdown-toggle.text-decoration-none{ href: "#",
+                      role: "button", :"data-bs-toggle" => "dropdown", :"aria-expanded" => "false" } 管理メニュー
+                    %ul.dropdown-menu.bg-secondary
+                      %li.dropdown-item
+                        = link_to "Story Map", admin_maps_path,
+                          class: "text-dark text-decoration-none d-block w-100 h-100"
+                      %li.dropdown-item
+                        = link_to "Loot Containers", admin_loot_containers_path,
+                          class: "text-dark text-decoration-none d-block w-100 h-100"
+                      %li.dropdown-item
+                        = link_to "Users", admin_users_path,
+                          class: "text-dark text-decoration-none d-block w-100 h-100"
+                %li.nav-item
+                  = link_to current_user.email, user_path(current_user.id),
+                    class: "nav-link"
+                %li.nav-item
+                  = button_to "ログアウト", logout_path, method: :delete,
+                    class: "nav-link btn_reset mt-2 d-inline align-middle"
+                %li.nav-item
+                  = link_to "新規ロケーション登録", new_location_path,
+                    class: "nav-link"
+              - else
+                %li.nav-item
+                  = link_to "新規登録", new_user_path, class: "nav-link"
+                %li.nav-item
+                  = link_to "ログイン", login_path, class: "nav-link"
+    - if content_for?(:map_view)
+      = yield :map_view
+    - else
+      .container.mt-3
+        - if flash.notice
+          .alert.alert-success
+            = flash.notice
+        - if flash.alert
+          .alert.alert-danger
+            = flash.alert
+        = yield

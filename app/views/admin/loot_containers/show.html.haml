@@ -1,0 +1,36 @@
+- content_for :title do
+  Loot Container description - Tarkov MAP
+
+%h2.mb-2 Loot Container description
+
+.d-flex.flex-row-reverse
+  = link_to "Return Story Map List", admin_loot_containers_path, class: "btn btn-success mb-3"
+
+%table.table.table-hover.mb-4
+  %tbody
+    %tr
+      %th.py-3.col-2.align-middle.text-secondary
+        = LootContainer.human_attribute_name(:name)
+      %td.py-3.align-middle.text-secondary
+        = @container.name
+    %tr
+      %th.py-3.col-2.align-middle.text-secondary
+        = LootContainer.human_attribute_name(:created_at)
+      %td.py-3.align-middle.text-secondary
+        = @container.created_at
+    %tr
+      %th.py-3.col-2.align-middle.text-secondary
+        = LootContainer.human_attribute_name(:updated_at)
+      %td.py-3.align-middle.text-secondary
+        = @container.updated_at
+    - if @container.container_image.attached?
+      %tr
+        %th.py-3.align-middle.text-secondary ルートコンテナ画像
+        %td{ colspan: "2" }
+          = image_tag @container.container_image
+
+= button_to "編集", edit_admin_loot_container_path(@container), method: :get,
+  class: "btn btn-warning text-black me-3 float-start"
+= button_to "削除", admin_loot_container_path(@container), method: :delete,
+  class: "btn btn-danger text-black",
+  form: { data: { turbo_confirm: "ユーザー「#{@container.name}」を削除します。よろしいですか？" } }

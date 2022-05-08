@@ -1,0 +1,26 @@
+- content_for :title do
+  Loot Container List - Tarkov MAP
+
+%h2 Loot Container List
+
+.d-flex.flex-row-reverse
+  = link_to "Loot Container Create", new_admin_loot_container_path, class: "btn btn-primary"
+
+%table.table.table-hover
+  %thead.thead-default
+    %tr
+      %th.align-middle.col-1.text-center.border-white.text-white
+        = LootContainer.human_attribute_name(:id)
+      %th.align-middle.border-white.text-white
+        = LootContainer.human_attribute_name(:name)
+      %th.text-white
+  %tbody
+    - @containers.each do |container|
+      %tr
+        %td.align-middle.col-1.text-center
+          = link_to container.id, admin_loot_container_path(container),
+            class: "d-block w-100 h-100 text-decoration-none text-secondary"
+        %td.align-middle
+          = link_to container.name, admin_loot_container_path(container),
+            class: "d-block w-100 h-100 text-decoration-none text-secondary"
+        %td

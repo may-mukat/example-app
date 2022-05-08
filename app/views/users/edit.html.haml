@@ -1,0 +1,43 @@
+- content_for :title do
+  User Edit - Tarkov MAP
+
+%h2.mb-3 User Edit
+
+.d-flex.flex-row-reverse
+  = link_to "Return", root_path, class: "btn btn-success mb-3"
+
+= form_with model: @user, local: true, data: { turbo_confirm: "本当によろしいですか?" }, class: "mb-3" do |form|
+  %p.fs-4 メールアドレス変更
+  .mb-4
+    = form.label :email, "メールアドレス", class: "mb-2"
+    = form.text_field :email, class: "form-control"
+  %hr
+  .mb-3
+    = form.label :password, "パスワード", class: "mb-2"
+    = form.password_field :password, class: "form-control"
+  .mb-3
+    = form.label :password_confirmation, "パスワード(確認用)", class: "mb-2"
+    = form.password_field :password_confirmation, class: "form-control"
+    -# %span.form-text.d-block.mt-1 Must be 8-20 characters long.
+
+  = form.submit "変更する", class: "btn btn-warning text-black mb-5"
+
+%hr
+%div
+  %span.fs-4.me-4 アカウント削除
+
+  %button.btn.btn-danger.text-black{ :type => "button", :"data-bs-toggle" => "modal",
+    :"data-bs-target" => "#deleteCheckModal" } Launch demo modal
+  #deleteCheckModal.modal.fade{ :"tabindex" => "-1", :"aria-labelledby" => "modalLabel",
+    :"aria-hidden" => "true" }
+    .modal-dialog.modal-dialog-centered
+      .modal-content.bg-dark
+        .modal-header
+          %h5.modal-title#exampleModalLabel 本当に削除しますか?
+          %button.btn-close{ :"type" => "button", :"data-bs-dismiss" => "modal", :"aria-label" => "Close" }
+        .modal-body.d-flex.justify-content-end
+          = form_with model: @user, local: true, method: :patch do |form|
+            %button.btn.btn-secondary.me-4{ :"type" => "button", :"data-bs-dismiss" => "modal" } 削除しない
+            = form.button "削除する", formmethod: :delete, class: "btn btn-danger text-black"
+-# = button_to "削除", user_path, method: :delete, class: "btn btn-danger text-black d-inline-block"
+-# = button_to "削除", user_path, method: :delete, class: "btn btn-danger mt-2", form: { data: { turbo_confirm: "ユーザー「#{@user.email}」を削除します。よろしいですか？" } }

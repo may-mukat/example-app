@@ -1,0 +1,51 @@
+- content_for :title do
+  User description - Tarkov MAP
+
+- if @user.errors.any?
+  %ul.alert.alert-danger
+    - @user.errors.full_messages.each do |message|
+      %li.ms-3.mt-1.mb-1
+        = message
+
+%h2.mb-3 User Edit
+
+.text-end.mb-3
+  = link_to "Return", admin_users_path, class: "btn btn-success"
+
+%table.table.table-hover
+  %tbody
+    %tr
+      %th.py-3.col-2.align-middle.text-secondary
+        = User.human_attribute_name(:email)
+      %td.py-3.align-middle.text-secondary{ colspan: "2" }
+        = @user.email
+    %tr
+      %th.py-3.col-2.align-middle.text-secondary
+        = User.human_attribute_name(:admin_flag)
+      %td.py-3.align-middle.text-secondary
+        - if @user.admin_flag
+          管理アカウント
+        - else
+          通常アカウント
+      %td.py-3
+        = link_to "権限を変更する", admin_user_path(@user), data: { turbo_method: :patch }, class: "btn btn-warning text-black"
+    %tr
+      %th.py-3.col-2.align-middle.text-secondary
+        = User.human_attribute_name(:delete_flag)
+      %td.py-3.align-middle.text-secondary
+        - if @user.delete_flag
+          削除済アカウント
+        - else
+          有効アカウント
+          %td.py-3
+            = button_to "アカウント削除", admin_user_path(@user), method: :delete, class: "btn btn-danger text-black"
+    %tr
+      %th.py-3.col-2.align-middle.text-secondary
+        = User.human_attribute_name(:created_at)
+      %td.py-3.align-middle.text-secondary{ colspan: "2" }
+        = @user.created_at
+    %tr
+      %th.py-3.col-2.align-middle.text-secondary
+        = User.human_attribute_name(:updated_at)
+      %td.py-3.align-middle.text-secondary{ colspan: "2" }
+        = @user.updated_at

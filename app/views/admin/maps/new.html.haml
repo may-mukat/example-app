@@ -1,0 +1,22 @@
+- content_for :title do
+  Story Map Create - Tarkov MAP
+
+- if @map.errors.any?
+  %ul.alert.alert-danger
+    - @map.errors.full_messages.each do |message|
+      %li.ms-3.mt-1.mb-1
+        = message
+
+%h2.mb-3 Story Map Create
+
+.d-flex.flex-row-reverse
+  = link_to "Return", admin_maps_path, class: "btn btn-success mb-3"
+
+= form_with model: @map, url: admin_maps_path, local: true do |form|
+  .mb-3
+    = form.label :name, "名称", class: "mb-2"
+    = form.text_field :name, class: "form-control"
+  .mb-3
+    = form.label :map_image, class: "mb-3"
+    = form.file_field :map_image, class: "form-control mb-3"
+  = form.submit "登録する", class: "btn btn-primary"

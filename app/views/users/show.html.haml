@@ -1,0 +1,28 @@
+- content_for :title do
+  User description - Tarkov MAP
+
+- if @user.errors.any?
+  %ul.alert.alert-danger
+    - @user.errors.full_messages.each do |message|
+      %li.ms-3.mt-1.mb-1
+        = message
+
+%h2.mb-3 User description
+
+.d-flex.flex-row-reverse
+  = link_to "Return", root_path, class: "btn btn-success mb-3"
+
+%table.table.table-hover
+  %tbody
+    %tr
+      %th.py-3.text-white-50
+        = User.human_attribute_name(:id)
+      %td.py-3.text-white-50
+        = @user.id
+    %tr
+      %th.py-3.text-white-50
+        = User.human_attribute_name(:email)
+      %td.py-3.text-white-50
+        = @user.email
+
+= button_to "編集", edit_user_path(@user), method: :get, class: "btn btn-primary mt-2 me-3 float-start"
