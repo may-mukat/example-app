@@ -48,8 +48,6 @@ gem "bootsnap", require: false
 gem "image_processing", "~> 1.2"
 
 gem 'hamlit'
-# gem 'bootstrap', '~> 5.1.3'
-# gem 'hashid-rails'
 
 # Use Amazon S3
 gem "aws-sdk-s3", require: false
