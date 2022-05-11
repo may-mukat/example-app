@@ -49,7 +49,7 @@
     %span.form-text.d-block.mt-1 ※ルートコンテナの種類が「Buried Barrel cache」又は「Ground cache」のみ添付してください。
   = form.submit "変更", class: "btn btn-warning text-black mt-2"
 
-%button.btn.btn-danger.text-black{ :type => "button", :"data-bs-toggle" => "modal",
+%button.btn.btn-danger.text-black.mb-4{ :type => "button", :"data-bs-toggle" => "modal",
   :"data-bs-target" => "#deleteCheckModal" } 削除する
 #deleteCheckModal.modal.fade{ :"tabindex" => "-1", :"aria-labelledby" => "modalLabel",
   :"aria-hidden" => "true" }
@@ -62,4 +62,3 @@
         = form_with model: @location, local: true, method: :patch do |form|
           %button.btn.btn-secondary.me-4{ :"type" => "button", :"data-bs-dismiss" => "modal" } 削除しない
           = form.button "削除する", formmethod: :delete, class: "btn btn-danger text-black"
--# = button_to "削除", location_path, method: :delete, class: "btn btn-danger text-black mt-2"
