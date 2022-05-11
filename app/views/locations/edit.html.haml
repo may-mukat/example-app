@@ -21,9 +21,7 @@
     = form.text_field :y_coordinate, class: "form-control"
   .mb-3
     = form.label :loot_container_id, "ルートコンテナの種類" ,class: "mb-2 d-block"
-    = form.select :loot_container_id,
-      LootContainer.all.order(:id).map { |loot_container| [loot_container.name, loot_container.id] },
-      {}, { class: "form-select" }
+    = form.select :loot_container_id, LootContainer.all.order(:id).map { |loot_container| [loot_container.name, loot_container.id] }, {}, { class: "form-select" }
   - if @location.distant_view.attached?
     .mb-3
       %p.mb-1 現在の遠景画像
@@ -49,10 +47,8 @@
     %span.form-text.d-block.mt-1 ※ルートコンテナの種類が「Buried Barrel cache」又は「Ground cache」のみ添付してください。
   = form.submit "変更", class: "btn btn-warning text-black mt-2"
 
-%button.btn.btn-danger.text-black.mb-4{ :type => "button", :"data-bs-toggle" => "modal",
-  :"data-bs-target" => "#deleteCheckModal" } 削除する
-#deleteCheckModal.modal.fade{ :"tabindex" => "-1", :"aria-labelledby" => "modalLabel",
-  :"aria-hidden" => "true" }
+%button.btn.btn-danger.text-black.mb-4{ :type => "button", :"data-bs-toggle" => "modal", :"data-bs-target" => "#deleteCheckModal" } 削除する
+#deleteCheckModal.modal.fade{ :"tabindex" => "-1", :"aria-labelledby" => "modalLabel", :"aria-hidden" => "true" }
   .modal-dialog.modal-dialog-centered
     .modal-content.bg-dark
       .modal-header
