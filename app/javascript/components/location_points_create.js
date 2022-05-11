@@ -8,25 +8,17 @@ export const locationPointsCreate = (...props) => {
   const correctionValX = 3585
   const correctionValY = 2252
   const correctionMag  = 2.89
+  const icon_width  = 30
+  const icon_height = 30
 
   Object.keys(locations).map(key => {
     const location_x = (locations[key]["x_coordinate"] * correctionMag) + correctionValX
     const location_y = (-locations[key]["y_coordinate"] * correctionMag) + correctionValY
-    // console.log("key", key)
-    // console.log("origin_x", locations[key]["x_coordinate"])
-    // console.log("origin_y", locations[key]["y_coordinate"])
-    // console.log("hosei_x", location_x)
-    // console.log("hosei_y", location_y)
-    // console.log(srcCoord["x"])
-    // console.log(srcCoord["y"])
-    // console.log(srcCoord["x"] + srcCoord["width"])
-    // console.log(srcCoord["y"] + srcCoord["height"])
-    // console.log("---")
     if (
-      srcCoord["x"] <= location_x &&
-      srcCoord["y"] <= location_y &&
-      srcCoord["x"] + srcCoord["width"]  >= location_x &&
-      srcCoord["y"] + srcCoord["height"] >= location_y
+      srcCoord["x"] <= location_x + icon_width &&
+      srcCoord["y"] <= location_y + icon_height &&
+      srcCoord["x"] + srcCoord["width"]  >= location_x + icon_width &&
+      srcCoord["y"] + srcCoord["height"] >= location_y + icon_height
     ) {
       chgLocations[key] = {...locations[key]}
       chgLocations[key]["x_coordinate"] = location_x
@@ -68,8 +60,8 @@ export const locationPointsCreate = (...props) => {
           <img
             src=${containers[locations[key]["container_id"]]["image"]}
             class="location_icon_img"
-            width="30"
-            height="auto"
+            width="${icon_width}"
+            height="${icon_height}"
             alt="container location"
           />
         </button>

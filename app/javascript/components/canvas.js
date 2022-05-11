@@ -1,9 +1,12 @@
 export const canvasDraw = (imgInst, img, srcCoord, setSrcCoord, sx, sy, nextWidth=null, nextHeight=null) => {
   const canvas  = document.getElementById("map_image")
   if(canvas) {
-    const ctx     = canvas.getContext("2d")
-    const sw      = nextWidth  === null ? canvas.width : nextWidth
-    const sh      = nextHeight === null ? canvas.height : nextHeight
+    const ctx = canvas.getContext("2d")
+    let sw  = nextWidth  === null ? canvas.width : nextWidth
+    let sh  = nextHeight === null ? canvas.height : nextHeight
+
+    sw = Math.round(sw)
+    sh = Math.round(sh)
 
     imgInst.addEventListener("load", () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -47,7 +50,6 @@ export const mapZoom = (...props) => {
     imgInst.height - nextHeight
   )
 
-  // setSrcCoord({ ...srcCoord, x: nextLeft, y: nextTop, width: nextWidth, height: nextHeight })
   canvasDraw(imgInst, img, srcCoord, setSrcCoord, nextLeft, nextTop, nextWidth, nextHeight)
   canvas.addEventListener("mousewheel", function(e) { e.preventDefault() }, { passive: false })
 }
@@ -70,7 +72,6 @@ export const mapMove = (...props) => {
       imgInst.height - height
     )
 
-    // setSrcCoord({ ...srcCoord, x: nextLeft, y: nextTop, width: width, height: height })
     canvasDraw(imgInst, img, srcCoord, setSrcCoord, nextLeft, nextTop, width, height)
   }
 }
