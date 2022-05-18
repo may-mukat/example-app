@@ -17,7 +17,7 @@
     %header#header
       %nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.w100.zindex-fixed
         .container-fluid
-          = link_to "TarkovMAP", root_path, class: "navbar-brand text-gold-gradient ms-3"
+          = link_to "Tarkov MAP", root_path, class: "navbar-brand text-gold-gradient ms-3"
           %button.navbar-toggler{ type: "button", :"data-bs-toggle" => "collapse", :"data-bs-target" => "#navbarDropdown", :"aria-controls" => "navbarDropdown", :"aria-expanded" => "false", :"aria-label" => "Toggle navigation" }
             %span.navbar-toggler-icon
           #navbarDropdown.collapse.navbar-collapse
@@ -51,8 +51,8 @@
                   = link_to "Create Account", new_user_path, class: "nav-link"
                 %li.nav-item
                   = link_to "Login", login_path, class: "nav-link"
-    - if content_for?(:map_view)
-      = yield :map_view
+    - if content_for?(:main)
+      = yield :main
     - else
       .container.mt-3
         - if flash.notice

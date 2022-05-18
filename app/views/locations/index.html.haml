@@ -1,21 +1,30 @@
-%h1 Tarkov Map
-.mt-3.mb-5
-  .mb-1
-    %span.text-secondary 当サイトは、
-    %span.fw-bold.text-secondary BATTLESTATE GAMES
-    %span.text-secondary が開発・提供するオンライン一人称アクション RPG/シミュレーター
-    %span.fw-bold.text-secondary Escape from Tarkov
-    %span.text-secondary のマップ情報の提供を目的としています。
-  %span.mb-1.d-block.text-secondary Story Location ListからStory Locationを選ぶことで、マップを確認することができます。
-  %span.mb-1.d-block.text-secondary 各マップ画面に配置されているLoot Containerアイコンをクリックすると、対象地点の詳細画像を確認することもできます。
-  %span.mb-1.d-block.text-secondary また、当サイトはGoogle Chrome最新版でのご利用を推奨しております。
-  %span.mb-1.d-block.text-secondary 他のブラウザーをご利用の際に不具合が発生した場合には、Google Chromeをお試しください。
-  %span.mb-1.d-block.text-secondary なお、マップにLoot Containerの地点登録を行う際には、会員登録が必須となります。
+- content_for :main do
+  #bg_image.container-fluid.pt-3
+    .container
+      - if flash.notice
+        .alert.alert-success
+          = flash.notice
+      - if flash.alert
+        .alert.alert-danger
+          = flash.alert
+      .text-shadow
+        %h1 Tarkov Map
+        .mt-3.mb-5.text-light
+          .mb-1
+            %span 当サイトは、
+            %span.fw-bold BATTLESTATE GAMES
+            %span が開発・提供するオンライン一人称アクション RPG/シミュレーター
+            %span.fw-bold Escape from Tarkov
+            %span のマップ情報の提供を目的としています。
+          %span.mb-1.d-block Story Location ListからStory Locationを選ぶことで、マップを確認することができます。
+          %span.mb-1.d-block さらに、各マップ画面に配置されているLoot Containerアイコンをクリックすると、対象地点の詳細を確認できます。
+          %span.mb-1.d-block また、当サイトはGoogle Chrome最新版でのご利用を推奨しております。他のブラウザーをご利用の際に不具合が発生した場合には、Google Chromeをお試しください。
+          %span.mb-1.d-block なお、マップにLoot Containerの地点登録を行う際には、会員登録が必須となります。
 
-%h2 Story Location List
-%table.table
-  %tbody
-    - @maps.each do |map|
-      %tr
-        %td.align-middle
-          = link_to map.name, location_path(map), class: "text-decoration-none text-secondary"
+        %h2 Story Location List
+        %table.table.table-hover
+          %tbody
+            - @maps.each do |map|
+              %tr
+                %td.align-middle.border-primary.border-top
+                  = link_to map.name, location_path(map), class: "text-decoration-none d-block"

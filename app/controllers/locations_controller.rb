@@ -35,9 +35,12 @@ class LocationsController < ApplicationController
 
   def update
     if @location.update(location_params)
+      location_image_purge(@location.near_view, params[:location][:near_view_isdelete])
+      location_image_purge(@location.distant_view, params[:location][:distant_view_isdelete])
+      location_image_purge(@location.animation_gif, params[:location][:animation_gif_isdelete])
       redirect_to location_path(@location.map)
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -45,7 +48,7 @@ class LocationsController < ApplicationController
     if @location.destroy
       redirect_to location_path(@location.map), status: :see_other
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -61,11 +64,9 @@ class LocationsController < ApplicationController
       )
     end
 
-    # def svg_image_url(image)
-    #   if image.content_type == "image/svg+xml"
-    #     URI.parse(url_for(image)).open.read.html_safe
-    #   end
-    # end
+    def location_image_purge(image, isDelete)
+      image.purge if "1" == isDelete && image.attached?
+    end
 
     # 受け取ったMap情報をもとに、関連する画像URLや座標地点を格納したハッシュを作成
     def create_location_data(map_data)
@@ -84,10 +85,10 @@ class LocationsController < ApplicationController
       if locations
         locations.each do |location|
           location_data[:locations][location.id] = {
-            x_coordinate:  location.x_coordinate,
-            y_coordinate:  location.y_coordinate,
-            container_id:  location.loot_container_id,
-            near_view:     location.near_view.attached? ?
+            x_coordinate: location.x_coordinate,
+            y_coordinate: location.y_coordinate,
+            container_id: location.loot_container_id,
+            near_view:    location.near_view.attached? ?
               url_for(location.near_view) : "#",
             distant_view: location.distant_view.attached? ?
               url_for(location.distant_view) : "#",

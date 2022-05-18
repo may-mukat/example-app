@@ -1,26 +1,26 @@
 - content_for :title do
   Login - Tarkov MAP
 
-%h2.mb-3 Login form
-
-.d-flex.flex-row-reverse
-  = link_to "Return", root_path, class: "btn btn-success mb-3"
-
 - if flash[:error].present?
   - flash.each do |k, v|
     .alert.alert-danger
       = v
 
+%h2.mb-3 Login form
+
+.d-flex.flex-row-reverse
+  = link_to "Return", root_path, class: "btn btn-success mb-3"
+
 = form_with scope: :session, url: login_path, local: true do |form|
   .mb-3
-    = form.label :email, "メールアドレス", class: "mb-2"
+    = form.label :email, User.human_attribute_name(:email), class: "mb-2"
     = form.text_field :email, class: "form-control"
   .mb-3
-    = form.label :password, "パスワード", class: "mb-2"
+    = form.label :password, User.human_attribute_name(:password), class: "mb-2"
     = form.password_field :password, class: "form-control"
   = form.submit "ログイン", class: "btn btn-primary mt-2"
 
-.my-3
+.my-2
   %span.text-white-50 未登録の方は、
   = link_to "こちら", new_user_path
   %span.text-white-50 から会員登録を行なってください。

@@ -7,29 +7,46 @@ ja:
         restrict_dependent_destroy:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
+      models:
+        map:
+        user:
+          blank: は必須項目です
+          too_long: は30文字以内で入力してください
     models:
       map: マップ
+      user: ユーザー
+      Loot_container: ルートコンテナ
+      location: ロケーション
     attributes:
       map:
-        id: ID
+        id: マップID
         name: 名称
         created_at: 登録日時
         updated_at: 更新日時
       user:
-        id: ID
+        id: ユーザーID
         name: 名称
         email: メールアドレス
         password: パスワード
-        password_confirmation: パスワード（確認）
+        password_confirmation: 確認用
         admin_flag: アカウントの種類
         delete_flag: 削除フラグ
         created_at: 登録日時
         updated_at: 更新日時
       loot_container:
-        id: ID
+        id: ルートコンテナID
         name: 名称
         created_at: 登録日時
         updated_at: 更新日時
+      location:
+        x_coordinate: X座標
+        y_coordinate: Y座標
+        map_id: マップ
+        loot_container_id: ルートコンテナ
+        user_id: ユーザー
+        distant_view: 遠景画像
+        near_view: 近景画像
+        animation_gif: GIF画像
   date:
     abbr_day_names:
     - 日

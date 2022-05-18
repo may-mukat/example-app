@@ -2,40 +2,8 @@
   Create Location - Tarkov MAP
 
 - if @location.errors.any?
-  %ul.alert.alert-danger
-    - @location.errors.full_messages.each do |message|
-      %li.ms-3.my-1
-        = message
+  = render partial: "layouts/error", locals: { obj: @location }
 
 %h2.mb-3 Create Location
 
-.d-flex.flex-row-reverse
-  = link_to "Return", root_path, class: "btn btn-success mb-3"
-
-= form_with model: @location, method: :post, local: true, data: { turbo_confirm: "本当によろしいですか?" }, class: "mb-5" do |form|
-  .mb-3
-    = form.label :map_id, "マップ名", class: "mb-2 d-block"
-    = form.select :map_id, Map.all.order(:id).map { |map| [map.name, map.id] }, {}, { class: "form-select" }
-  .mb-3
-    = form.label :x_coordinate, "X座標", class: "mb-2"
-    = form.text_field :x_coordinate, class: "form-control"
-  .mb-3
-    = form.label :y_coordinate, "Y座標", class: "mb-2"
-    = form.text_field :y_coordinate, class: "form-control"
-  .mb-3
-    = form.label :loot_container_id, "ルートコンテナの種類" ,class: "mb-2 d-block"
-    = form.select :loot_container_id,
-      LootContainer.all.order(:id).map { |loot_container| [loot_container.name, loot_container.id] },
-      {}, { class: "form-select" }
-  .mb-3
-    = form.label :distant_view, "遠景画像",class: "mb-2"
-    = form.file_field :distant_view, class: "form-control"
-  .mb-3
-    = form.label :near_view, "近景画像", class: "mb-2"
-    = form.file_field :near_view, class: "form-control"
-  .mb-3
-    = form.label :animation_gif, "GIF画像", class: "mb-2"
-    = form.file_field :animation_gif, class: "form-control"
-    %span.form-text.d-block.mt-1 ※ルートコンテナの種類が「Buried Barrel cache」又は「Ground cache」のみ添付してください。
-
-  = form.submit "登録する", class: "btn btn-primary mt-3"
+= render partial: "form", locals: { obj: @location }
