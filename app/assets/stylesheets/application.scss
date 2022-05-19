@@ -16,51 +16,53 @@
 
 // Custom bootstrap variables must be set or imported *before* bootstrap.
 .bg-black { background: #000; }
-.text-black { color: #000; }
-.view-shadow { box-shadow: 0 0 5px 2px rgba(204, 204, 204, 0.6); }
+.text-black { color: #87CEFA; }
+.view-shadow { box-shadow: 0 0 5px 2px rgba(#CCC, 0.6); }
 .form-check-input-danger:checked {
-  background-color: #dc3545;
-  border-color: #dc3545;
+  background-color: #DC3545;
+  border-color: #DC3545;
 }
 .form-focus:focus {
   color: #495057;
-  background-color: #fff;
-  border-color: #80bdff;
+  background-color: #FFF;
+  border-color: #80BDFF;
   outline: 0;
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.8);
+  box-shadow: 0 0 0 0.2rem rgba(#007BFF, 0.8);
 }
-// .text-gold-gradient {
-//   color: #ffd700;
-//   background: -webkit-linear-gradient(top, #ffd520 0%, #b8860b 25%, #808000 50%, #556b2f 100%);
-//   -webkit-background-clip: text;
-//   -webkit-text-fill-color: transparent;
-// }
 .text-shadow {
   text-shadow:
     1px 1px 1px #000,
     -1px 1px 1px #000,
     1px -1px 1px #000,
-    -1px -1px 1px #000,
+    -1px -1px 1px #000
   ;
 }
-#bg_image {
+.table-hover-black {
+  & td:hover{
+    background-color: rgba(#000, 0.6);
+    & a {
+      color: #FFF;
+    }
+  }
+}
+#bg_img {
   background-image: url("/images/2022-02-14[16-51]_-166.7, -54.2, 368.8_0.0, 0.1, 0.0, 1.0_10.00 (0).webp");
   background-position: center top;
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
   height: 95vh;
+  background-color: rgba(#FFF, 0.3);
+  background-blend-mode: lighten;
 }
-
 .map_image {
   overflow: auto;
   flex: 1;
   position: absolute;
 }
-
 .location_ {
   &view {
-    background: black;
+    background: #000;
     width: 600px;
     overflow-y: scroll;
     flex: 2;
@@ -71,7 +73,7 @@
       width: 5px;
     }
     &::-webkit-scrollbar-track {
-      background: rgba(0, 0, 0, 1);
+      background: rgba(#000, 1.0);
     }
     &::-webkit-scrollbar-thumb {
       background: #999;
@@ -85,7 +87,6 @@
     }
   }
 }
-
 .btn_reset {
   padding: 0;
   border: none;

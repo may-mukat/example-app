@@ -1,5 +1,5 @@
 - content_for :main do
-  #bg_image.container-fluid.pt-3
+  #bg_img.container-fluid.pt-3
     .container
       - if flash.notice
         .alert.alert-success
@@ -21,10 +21,10 @@
           %span.mb-1.d-block また、当サイトはGoogle Chrome最新版でのご利用を推奨しております。他のブラウザーをご利用の際に不具合が発生した場合には、Google Chromeをお試しください。
           %span.mb-1.d-block なお、マップにLoot Containerの地点登録を行う際には、会員登録が必須となります。
 
-        %h2 Story Location List
-        %table.table.table-hover
-          %tbody
-            - @maps.each do |map|
-              %tr
-                %td.align-middle.border-primary.border-top
-                  = link_to map.name, location_path(map), class: "text-decoration-none d-block"
+      %h2.text-shadow Story Location List
+      %table.table.table-hover-black.zindex-fixed
+        %tbody
+          - @maps.each do |map|
+            %tr
+              %td.align-middle.border-primary.border-top
+                = link_to map.name, location_path(map), class: "text-decoration-none text-black fw-bold d-block text-shadow"
