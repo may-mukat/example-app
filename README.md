@@ -1,24 +1,17 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Tarkov MAP
+### 概要
+FPSゲームのマップ情報提供を目的としたサイトです。
+座標と画像を登録することで、対応した座標地点にアイコンが表示されます。
+また、アイコンをクリックすることで登録した画像を表示できます。
+[heroku](https://stark-atoll-11322.herokuapp.com/)で公開しています。
+### 使用技術
+* Ruby 3.1.2p20
+* Ruby on Rails 7.0.2.3
+* React 17.0.2
+* PostgreSQL 14.2
+### 機能一覧
+* ユーザー登録、ログイン機能
+* 地点情報登録、編集機能
+* 登録地点表示機能
