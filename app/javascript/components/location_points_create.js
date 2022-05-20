@@ -11,12 +11,13 @@ export const locationPointsCreate = (...props) => {
   const icon_width  = 30
   const icon_height = 30
 
+  // drawImageのsx,sy,sw,syおよびアイコンのサイズをもとに、描画対象の連想配列を作成する
   Object.keys(locations).map(key => {
     const location_x = (locations[key]["x_coordinate"] * correctionMag) + correctionValX
     const location_y = (-locations[key]["y_coordinate"] * correctionMag) + correctionValY
     if (
-      srcCoord["x"] <= location_x + icon_width &&
-      srcCoord["y"] <= location_y + icon_height &&
+      srcCoord["x"] <= location_x &&
+      srcCoord["y"] <= location_y &&
       srcCoord["x"] + srcCoord["width"]  >= location_x + icon_width &&
       srcCoord["y"] + srcCoord["height"] >= location_y + icon_height
     ) {
@@ -35,8 +36,8 @@ export const locationPointsCreate = (...props) => {
     <style>
       ${Object.keys(chgLocations).map(key => `
         .location_point_${key} {
-          top:  ${(chgLocations[key]["y_coordinate"] - srcCoord["y"] + headerHeight) * zoomLevel}px;
-          left: ${(chgLocations[key]["x_coordinate"] - srcCoord["x"]) * zoomLevel}px;
+          top:  ${(chgLocations[key]["y_coordinate"] - srcCoord["y"] + headerHeight - (icon_height / 2)) * zoomLevel}px;
+          left: ${(chgLocations[key]["x_coordinate"] - srcCoord["x"] - (icon_width / 2)) * zoomLevel}px;
         }
       `)}
     </style>
