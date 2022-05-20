@@ -23,9 +23,9 @@
   .mb-2
     .input-group.d-block-inline
       = form.label :x_coordinate, Location.human_attribute_name(:x_coordinate), class: "input-group-text"
-      = form.number_field :x_coordinate, class: "form-control form-focus"
+      = form.number_field :x_coordinate, step: 0.1, class: "form-control form-focus"
       = form.label :y_coordinate, Location.human_attribute_name(:y_coordinate), class: "input-group-text"
-      = form.number_field :y_coordinate, class: "form-control form-focus"
+      = form.number_field :y_coordinate, step: 0.1, class: "form-control form-focus"
     %span.form-text.mt-1 ※ Escape From Tarkov上の座標を入力してください。
   .mb-3
     = form.label :loot_container_id, Location.human_attribute_name(:loot_container_id),class: "mb-2 d-block"
