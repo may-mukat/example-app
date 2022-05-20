@@ -1,7 +1,7 @@
 import h from "./htm_create_element"
 
 export const locationPointsCreate = (...props) => {
-  const [containers, locations, zoomLevel, srcCoord, setViewData, showFlag, setShowFlag] = props
+  const [containers, locations, zoomLevel, srcCoord, setViewData, setShowFlag] = props
   const headerHeight = document.getElementById("header").clientHeight
   let chgLocations   = {}
 
@@ -11,7 +11,7 @@ export const locationPointsCreate = (...props) => {
   const icon_width  = 30
   const icon_height = 30
 
-  // drawImageのsx,sy,sw,syおよびアイコンのサイズをもとに、描画対象の連想配列を作成する
+  // drawImageのsx,sy,sw,shおよびアイコンのサイズをもとに、描画対象の連想配列を作成する
   Object.keys(locations).map(key => {
     const location_x = (locations[key]["x_coordinate"] * correctionMag) + correctionValX
     const location_y = (-locations[key]["y_coordinate"] * correctionMag) + correctionValY
