@@ -16,12 +16,12 @@ export const locationPointsCreate = (...props) => {
     const location_x = (locations[key]["x_coordinate"] * correctionMag) + correctionValX
     const location_y = (-locations[key]["y_coordinate"] * correctionMag) + correctionValY
     if (
-      srcCoord["x"] <= location_x &&
-      srcCoord["y"] <= location_y &&
-      srcCoord["x"] + srcCoord["width"]  >= location_x + icon_width &&
-      srcCoord["y"] + srcCoord["height"] >= location_y + icon_height
+      srcCoord["x"] <= location_x - (icon_width / 2) &&
+      srcCoord["y"] <= location_y - (icon_height / 2) &&
+      srcCoord["x"] + srcCoord["width"]  >= location_x + (icon_width / 2) &&
+      srcCoord["y"] + srcCoord["height"] >= location_y + (icon_height / 2)
     ) {
-      chgLocations[key] = {...locations[key]}
+      chgLocations[key] = { ...locations[key] }
       chgLocations[key]["x_coordinate"] = location_x
       chgLocations[key]["y_coordinate"] = location_y
     }
@@ -36,8 +36,8 @@ export const locationPointsCreate = (...props) => {
     <style>
       ${Object.keys(chgLocations).map(key => `
         .location_point_${key} {
-          top:  ${(chgLocations[key]["y_coordinate"] - srcCoord["y"] + headerHeight - (icon_height / 2)) * zoomLevel}px;
-          left: ${(chgLocations[key]["x_coordinate"] - srcCoord["x"] - (icon_width / 2)) * zoomLevel}px;
+          top:  ${(chgLocations[key]["y_coordinate"] - srcCoord["y"]) * zoomLevel - icon_height / 2 + headerHeight}px;
+          left: ${(chgLocations[key]["x_coordinate"] - srcCoord["x"]) * zoomLevel - icon_width / 2}px;
         }
       `)}
     </style>

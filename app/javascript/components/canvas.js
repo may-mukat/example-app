@@ -39,14 +39,15 @@ export const mapZoom = (...props) => {
   setZoomLevel(nextZoom)
 
   // 計算したズーム倍率、マウスの座標位置を共に、画像描画に必要なsx, sy, sw, shを計算する
-  const nextWidth  = canvas.width / nextZoom
-  const nextHeight = canvas.height / nextZoom
+  const headerHeight = document.getElementById("header").clientHeight
+  const nextWidth    = canvas.width / nextZoom
+  const nextHeight   = canvas.height / nextZoom
   const nextLeft = coordinateCheck(
     srcCoord["x"] + (e.clientX / zoomLevel) - (e.clientX / nextZoom),
     imgInst.width - nextWidth
   )
   const nextTop = coordinateCheck(
-    srcCoord["y"] + (e.clientY / zoomLevel) - (e.clientY / nextZoom),
+    srcCoord["y"] + ((e.clientY - headerHeight) / zoomLevel) - ((e.clientY - headerHeight) / nextZoom),
     imgInst.height - nextHeight
   )
 
