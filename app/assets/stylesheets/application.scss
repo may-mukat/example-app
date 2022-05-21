@@ -82,6 +82,7 @@
   &icon {
     position: absolute;
     z-index: 2;
+    filter: drop-shadow(0 0.2rem 0.5rem #FFD700);
     &:hover {
       transform: scale(1.2);
     }
