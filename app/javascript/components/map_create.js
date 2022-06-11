@@ -29,7 +29,7 @@ export const mapCreate = () => {
         setEleClient({
           ...eleClient,
           width:  document.documentElement.clientWidth,
-          height: document. documentElement.clientHeight - document.getElementById("header").clientHeight
+          height: document.documentElement.clientHeight - document.getElementById("header").clientHeight
         })
       })
       mapRef.current && observer.observe(mapRef.current)

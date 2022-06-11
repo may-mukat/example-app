@@ -1,4 +1,5 @@
 .d-flex.flex-row-reverse.mb-3
+  -# ロケーションが登録済の場合、削除ボタンを表示する
   - if obj.persisted?
     = link_to "Return", location_path(obj.map), class: "btn btn-success b-block-inline"
     %button.btn.btn-danger.d-block-inline.me-4{ :type => "button", :"data-bs-toggle" => "modal", :"data-bs-target" => "#deleteCheckModal" } Delete
@@ -6,20 +7,22 @@
       .modal-dialog.modal-dialog-centered
         .modal-content.bg-dark
           .modal-header
-            %h5.modal-title#exampleModalLabel 本当に削除してもよろしいですか?
+            %h5.modal-title#ModalLabel 本当に削除してもよろしいですか?
             %button.btn-close{ :"type" => "button", :"data-bs-dismiss" => "modal", :"aria-label" => "Close" }
           .modal-body.d-flex.justify-content-end
             = form_with model: obj, local: true, method: :patch do |form|
-              %button.btn.btn-secondary.me-4{ :"type" => "button", :"data-bs-dismiss" => "modal" } 削除しない
-              = form.button "削除する", formmethod: :delete, class: "btn btn-danger"
+              %button.btn.btn-secondary.me-4{ :"type" => "button", :"data-bs-dismiss" => "modal" } Not Delete
+              = form.button "Delete", formmethod: :delete, class: "btn btn-danger"
   - else
     = link_to "Return", root_path, class: "btn btn-success mb-3"
 
 = form_with model: obj, local: true, class: "mb-5" do |form|
+  -# 新規登録の場合は、マップIDの登録を行う
   - unless obj.persisted?
     .mb-4
       = form.label :map_id, Location.human_attribute_name(:map_id), class: "mb-2 d-block"
       = form.select :map_id, Map.all.order(:id).map { |map| [map.name, map.id] }, {}, { class: "form-select" }
+
   .mb-2
     .input-group.d-block-inline
       = form.label :x_coordinate, Location.human_attribute_name(:x_coordinate), class: "input-group-text"
@@ -30,6 +33,8 @@
   .mb-3
     = form.label :loot_container_id, Location.human_attribute_name(:loot_container_id),class: "mb-2 d-block"
     = form.select :loot_container_id, LootContainer.all.order(:id).map { |loot_container| [loot_container.name, loot_container.id] }, {}, { class: "form-select" }
+
+  -# 画像が登録されていれば、現在登録されている画像を表示し、画像登録の可否でラベルの文字を変更する
   - if obj.distant_view.attached?
     .mb-2
       %span.mb-1.me-4 現在の遠景画像
@@ -61,7 +66,9 @@
     = form.label :animation_gif, obj.persisted? ? "GIF画像の追加・変更" : "GIF画像の登録", class: "mb-2"
     = form.file_field :animation_gif, class: "form-control form-focus"
     %span.form-text.d-block.mt-1.mb-2 ※ ルートコンテナの種類が「Buried Barrel cache」又は「Ground cache」のみ添付してください。
+
+  -# 新規か登録済かで文字列、クラスを変更する
   - if obj.persisted?
-    = form.submit "Change", class: "btn btn-warning text-black"
+    = form.submit "Change", class: "btn btn-warning"
   - else
     = form.submit "Register", class: "btn btn-primary"

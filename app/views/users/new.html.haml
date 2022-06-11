@@ -14,14 +14,14 @@
 
 = form_with model: @user, method: :post, local: true, class: "mb-5" do |form|
   .mb-3
-    = form.label :email, "メールアドレス", class: "mb-2"
+    = form.label :email, User.human_attribute_name(:email), class: "form-label"
     = form.text_field :email, class: "form-control form-focus"
-  .mb-3.row
-    .col-md-6.d-flex
-      = form.label :password, User.human_attribute_name(:password), class: "input-group-text"
-      = form.password_field :password, class: "form-control form-focus flex-grow-2"
-    .col-md-6.d-flex
-      = form.label :password_confirmation, User.human_attribute_name(:password_confirmation), class: "input-group-text"
-      = form.password_field :password_confirmation, class: "form-control form-focus flex-grow-1"
-    %span.form-text.mt-1.mb-3.d-block ※ 10文字以上30文字以下のパスワードを入力してください。
+  .mb-3
+    = form.label :password, "新しいパスワード", class: "form-label"
+    = form.password_field :password, class: "form-control form-focus"
+    %span.form-text.mt-1 ※ 10文字以上30文字以下のパスワードを入力してください。
+  .mb-3
+    = form.label :password_confirmation, User.human_attribute_name(:password_confirmation), class: "form-label"
+    = form.password_field :password_confirmation, class: "form-control form-focus"
+    %span.form-text.mt-1 ※ 確認のため、もう一度ご入力ください
   = form.submit "Register", class: "btn btn-primary"

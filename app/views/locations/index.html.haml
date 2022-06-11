@@ -26,5 +26,5 @@
         %tbody
           - @maps.each do |map|
             %tr
-              %td.align-middle.border-primary.border-top
-                = link_to map.name, location_path(map), class: "text-decoration-none text-black fw-bold d-block text-shadow"
+              %td.align-middle.border-primary.border-top.p-0
+                = link_to map.name, location_path(map), class: "p-2 text-decoration-none text-lightSkyBlue fw-bold d-block text-shadow"

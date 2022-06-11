@@ -28,7 +28,7 @@ ja:
         name: 名称
         email: メールアドレス
         password: パスワード
-        password_confirmation: 確認用
+        password_confirmation: パスワード確認
         admin_flag: アカウントの種類
         delete_flag: 削除フラグ
         created_at: 登録日時

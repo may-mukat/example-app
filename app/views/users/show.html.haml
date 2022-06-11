@@ -1,28 +1,45 @@
 - content_for :title do
   User description - Tarkov MAP
 
-- if @user.errors.any?
-  %ul.alert.alert-danger
-    - @user.errors.full_messages.each do |message|
-      %li.ms-3.mt-1.mb-1
-        = message
+- content_for :main do
+  .container-fluid.p-0
+    .d-flex.m-0
+      .bg-menu.w-250px
+        %ul.flex-column.list-group
+          %li.list-group-item.p-0.border-0.bg-secondary.disabled
+            = link_to "基本情報", user_path(@user), class: "text-white-50 d-block ps-3 py-3 text-decoration-none"
+          %li.list-group-item.p-0.border-0.bg-menu
+            = link_to "メールアドレス更新", user_edit_email_path(@user), class: "text-white-50 d-block ps-3 py-3 text-decoration-none"
+          %li.list-group-item.p-0.border-0.bg-menu
+            = link_to "パスワード更新", user_edit_password_path(@user), class: "text-white-50 d-block ps-3 py-3 text-decoration-none"
+          %li.list-group-item.p-0.border-0.bg-menu
+            = link_to "アカウント削除", user_deactive_path(@user), class: "text-white-50 d-block ps-3 py-3 text-decoration-none"
+      .container.p-3
+        - if flash.notice
+          .alert.alert-success
+            = flash.notice
+        - if flash.alert
+          .alert.alert-danger
+            = flash.alert
 
-%h2.mb-3 User description
+        %h2.text-white.m-3 User description
+        .mx-3.pt-3
+          %table.table
+            %tbody
+              %tr.border-0
+                %th.py-3.text-white-50
+                  = User.human_attribute_name(:email)
+                %td.py-3.text-white-50
+                  = @user.email
 
-.d-flex.flex-row-reverse
-  = link_to "Return", root_path, class: "btn btn-success mb-3"
-
-%table.table.table-hover
-  %tbody
-    %tr
-      %th.py-3.text-white-50
-        = User.human_attribute_name(:id)
-      %td.py-3.text-white-50
-        = @user.id
-    %tr
-      %th.py-3.text-white-50
-        = User.human_attribute_name(:email)
-      %td.py-3.text-white-50
-        = @user.email
-
-= button_to "編集", edit_user_path(@user), method: :get, class: "btn btn-primary mt-2 me-3 float-start"
+  :javascript
+    (function() {
+      const headerElement = document.getElementById("header")
+      const targetElement = document.querySelector(".w-250px")
+      const observer = new ResizeObserver(() => {
+        const clientHeight  = document.documentElement.clientHeight
+        const headerHeight  = headerElement.clientHeight
+        targetElement.style.height = clientHeight - headerHeight + "px"
+      })
+      observer.observe(headerElement)
+    }())

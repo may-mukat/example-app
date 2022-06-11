@@ -1,0 +1,63 @@
+- content_for :title do
+  Email Edit - Tarkov MAP
+
+- content_for :main do
+  .container-fluid.p-0
+    .d-flex.m-0
+      .bg-menu.w-250px
+        %ul.flex-column.list-group
+          %li.list-group-item.p-0.border-0.bg-menu
+            = link_to "基本情報", user_path(@user), class: "text-white-50 d-block ps-3 py-3 text-decoration-none"
+          %li.list-group-item.p-0.border-0.bg-secondary.disabled
+            = link_to "メールアドレス更新", user_edit_email_path(@user), class: "text-white-50 d-block ps-3 py-3 text-decoration-none"
+          %li.list-group-item.p-0.border-0.bg-menu
+            = link_to "パスワード更新", user_edit_password_path(@user), class: "text-white-50 d-block ps-3 py-3 text-decoration-none"
+          %li.list-group-item.p-0.border-0.bg-menu
+            = link_to "アカウント削除", user_deactive_path(@user), class: "text-white-50 d-block ps-3 py-3 text-decoration-none"
+      .container.p-3
+        - if flash.notice
+          .alert.alert-success
+            = flash.notice
+        - if flash.alert
+          .alert.alert-danger
+            = flash.alert
+        - if @user.errors.any?
+          %ul.alert.alert-danger
+            - @user.errors.full_messages.each do |message|
+              %li.ms-3.mt-1.mb-1
+                = message
+
+        %h2.text-white.m-3 Email Edit
+        .mx-3.pt-3
+          %label.mb-2{ for: :current_email } 現在のメールアドレス
+          %input.form-control.bg-secondary.border-secondary{type: :email, name: :current_email, value: current_user.email, disabled: true}
+          = form_with model: @user, url: user_update_email_path(@user), method: "post", local: true, class: "mt-3" do |form|
+            .mb-4
+              = form.label :email, "新しいメールアドレス", class: "mb-2"
+              %input#user_email.form-control{type: :email, name: "user[email]"}
+              -# = form.text_field :email, class: "form-control"
+            %button.btn.btn-primary{ :type => "button", :"data-bs-toggle" => "modal", :"data-bs-target" => "#confirmModal" } Change
+            #confirmModal.modal.fade{ :"tabindex" => "-1", :"aria-labelledby" => "modalLabel", :"aria-hidden" => "true" }
+              .modal-dialog.modal-dialog-centered
+                .modal-content.bg-dark
+                  .modal-header
+                    %h5.modal-title#ModalLabel パスワードを入力してください
+                    %button.btn-close{ :"type" => "button", :"data-bs-dismiss" => "modal", :"aria-label" => "Close" }
+                  .modal-body
+                    = form.label :password, User.human_attribute_name(:password), class: "mb-2"
+                    = form.password_field :password, class: "form-control form-focus flex-grow-2"
+                  .modal-footer.d-flex.justify-content-end
+                    %button.btn.btn-secondary.me-4{ :"type" => "button", :"data-bs-dismiss" => "modal" } Not Change
+                    = form.button "Change", class: "btn btn-primary"
+
+  :javascript
+    (function() {
+      const headerElement = document.getElementById("header")
+      const targetElement = document.querySelector(".w-250px")
+      const observer = new ResizeObserver(() => {
+        const clientHeight  = document.documentElement.clientHeight
+        const headerHeight  = headerElement.clientHeight
+        targetElement.style.height = clientHeight - headerHeight + "px"
+      })
+      observer.observe(headerElement)
+    }())

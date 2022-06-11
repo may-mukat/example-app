@@ -35,9 +35,9 @@ class LocationsController < ApplicationController
 
   def update
     if @location.update(location_params)
-      location_image_purge(@location.near_view, params[:location][:near_view_isdelete])
-      location_image_purge(@location.distant_view, params[:location][:distant_view_isdelete])
-      location_image_purge(@location.animation_gif, params[:location][:animation_gif_isdelete])
+      location_image_purge(@location.near_view, location_image_params[:near_view_isdelete])
+      location_image_purge(@location.distant_view, location_image_params[:distant_view_isdelete])
+      location_image_purge(@location.animation_gif, location_image_params[:animation_gif_isdelete])
       redirect_to location_path(@location.map)
     else
       render :edit, status: :unprocessable_entity
@@ -61,6 +61,12 @@ class LocationsController < ApplicationController
       params.require(:location).permit(
         :map_id, :x_coordinate, :y_coordinate, :loot_container_id,
         :near_view, :distant_view, :animation_gif
+      )
+    end
+
+    def location_image_params
+      params.require(:location).permit(
+        :near_view_isdelete, :distant_view_isdelete, :animation_gif_isdelete
       )
     end
 
