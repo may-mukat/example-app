@@ -1,22 +1,28 @@
 class Location < ApplicationRecord
-  validates :x_coordinate, :y_coordinate, presence: true
   belongs_to :map
   belongs_to :loot_container
   belongs_to :user
   has_one_attached :near_view
   has_one_attached :distant_view
   has_one_attached :animation_gif
-  # validates_attachment :near_view, :distant_view, :animation_gif,
-  # content_type: {
-  #   content_type: [
-  #     "image_jpg",
-  #     "image_jpeg",
-  #     "image_png",
-  #     "image_gif"
-  #   ]
-  # },
-  # size: {
-  #   less_than_or_equal_to: 1.megabytes
-  # }
 
+  validates :x_coordinate, :y_coordinate, presence: true
+  validate :correct_image
+  validate :correct_gif
+
+  private
+    def correct_image
+      images = [near_view, distant_view]
+      images.each do |image|
+        if image.attached? && !image.content_type.in?(%w(image/jpg image/jpeg image/png image/gif image/webp))
+          errors.add(image.name.to_sym, "で選択されているファイルは不正です。")
+        end
+      end
+    end
+
+    def correct_gif
+      if animation_gif.attached? && !animation_gif.content_type.in?(%w(image/gif))
+        errors.add(:animation_gif, "で選択されているファイルは不正です。")
+      end
+    end
 end

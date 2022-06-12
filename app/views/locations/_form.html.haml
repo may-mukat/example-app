@@ -40,32 +40,34 @@
       %span.mb-1.me-4 現在の遠景画像
       .form-check.form-switch.d-inline-block
         = form.check_box :distant_view_isdelete, class: "form-check-input form-check-input-danger"
-        = form.label :distant_view_isdelete, "チェックを入れると、画像が削除されます。",class: "form-check-label text-danger"
-      = image_tag obj.distant_view, class: "mw-100"
+        = form.label :distant_view_isdelete, "チェックを入れると、現在の画像が削除されます。",class: "form-check-label text-danger"
+      = image_tag obj.distant_view, class: "mw-100 d-block"
   .mb-3
-    = form.label :distant_view, obj.persisted? ? "遠景画像の追加・変更" : "遠景画像の登録", class: "mb-2"
+    = form.label :distant_view, obj.distant_view.attached? ? "遠景画像の追加・変更" : "遠景画像の登録", class: "mb-2"
     = form.file_field :distant_view, class: "form-control form-focus"
+    %span.form-text.d-block.mt-1.mb-2 ※ 「jpg, jpeg, png, gif, webp」以外のファイル形式は登録できません。
   - if obj.near_view.attached?
     .mb-2
       %span.mb-1.me-4 現在の近景画像
       .form-check.form-switch.d-inline-block
         = form.check_box :near_view_isdelete, class: "form-check-input form-check-input-danger"
-        = form.label :near_view_isdelete, "チェックを入れると、画像が削除されます。",class: "form-check-label text-danger"
-      = image_tag obj.near_view, class: "mw-100"
+        = form.label :near_view_isdelete, "チェックを入れると、現在の画像が削除されます。",class: "form-check-label text-danger"
+      = image_tag obj.near_view, class: "mw-100 d-block"
   .mb-3
-    = form.label :near_view, obj.persisted? ? "近景画像の追加・変更" : "近景画像の登録", class: "mb-2"
+    = form.label :near_view, obj.near_view.attached? ? "近景画像の追加・変更" : "近景画像の登録", class: "mb-2"
     = form.file_field :near_view, class: "form-control form-focus"
+    %span.form-text.d-block.mt-1.mb-2 ※ 「jpg, jpeg, png, gif, webp」以外のファイル形式は登録できません。
   - if obj.animation_gif.attached?
     .mb-2
       %span.mb-1.me-4 現在のアニメーションGIF
       .form-check.form-switch.d-inline-block
         = form.check_box :animation_gif_isdelete, class: "form-check-input form-check-input-danger"
-        = form.label :animation_gif_isdelete, "チェックを入れると、画像が削除されます。",class: "form-check-label text-danger"
-      = image_tag obj.animation_gif, class: "mw-100"
+        = form.label :animation_gif_isdelete, "チェックを入れると、現在の画像が削除されます。",class: "form-check-label text-danger"
+      = image_tag obj.animation_gif, class: "mw-100 d-block"
   .mb-3
-    = form.label :animation_gif, obj.persisted? ? "GIF画像の追加・変更" : "GIF画像の登録", class: "mb-2"
+    = form.label :animation_gif, obj.animation_gif.attached? ? "アニメーションGIFの追加・変更" : "アニメーションGIFの登録", class: "mb-2"
     = form.file_field :animation_gif, class: "form-control form-focus"
-    %span.form-text.d-block.mt-1.mb-2 ※ ルートコンテナの種類が「Buried Barrel cache」又は「Ground cache」のみ添付してください。
+    %span.form-text.d-block.mt-1 ※ 登録できるファイル形式は「gif」のみです。
 
   -# 新規か登録済かで文字列、クラスを変更する
   - if obj.persisted?

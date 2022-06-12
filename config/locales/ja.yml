@@ -46,7 +46,7 @@ ja:
         user_id: ユーザー
         distant_view: 遠景画像
         near_view: 近景画像
-        animation_gif: GIF画像
+        animation_gif: アニメーションGIF
   date:
     abbr_day_names:
     - 日
