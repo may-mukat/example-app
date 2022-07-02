@@ -2,10 +2,7 @@
   Loot Container Edit - Tarkov MAP
 
 - if @container.errors.any?
-  %ul.alert.alert-danger
-    - @container.errors.full_messages.each do |message|
-      %li.ms-3.mt-1.mb-1
-        = message
+  = render partial: "layouts/error", locals: { obj: @container }
 
 %h2.mb-3 Loot Container Edit
 
@@ -13,14 +10,16 @@
   = link_to "Return", admin_loot_containers_path, class: "btn btn-success mb-3"
 
 = form_with model: @container, url: admin_loot_container_path, method: :patch, local: true do |form|
-  .mb-5
-    = form.label :name, "名称", class: "mb-2"
+  .mb-3
+    = form.label :name, "コンテナ名称", class: "mb-2"
     = form.text_field :name, class: "form-control"
   .mb-3
     - if @container.container_image.attached?
-      %p 現在のコンテナ画像
-      = image_tag @container.container_image
+      %span.mb-1 現在のコンテナ画像
+      = image_tag @container.container_image, class: "mw-100 d-block"
   .mb-3
     = form.label :container_image, "新しいコンテナ画像", class: "mb-2"
-    = form.file_field :container_image, class: "form-control mb-3"
+    = form.file_field :container_image, class: "form-control"
+    %span.form-text.d-block.mt-1 ※ 画像フォーマットは「jpg, jpeg, gif」のみ対応しています。
+    %span.form-text.d-block.mt-1 ※ 画像ファイルのサイズが10KBを超える場合は登録できません。
   = form.submit "更新する", class: "btn btn-primary mt-2"

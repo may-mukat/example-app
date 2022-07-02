@@ -19,4 +19,6 @@
   .mb-3
     = form.label :container_image, class: "mb-2"
     = form.file_field :container_image, class: "form-control"
+    %span.form-text.d-block.mt-1 ※ ファイルフォーマットは「jpg, jpeg, gif」のみ対応しています。
+    %span.form-text.d-block.mt-1 ※ ファイルサイズが10KBを超える場合は登録できません。
   = form.submit "登録する", class: "btn btn-primary"

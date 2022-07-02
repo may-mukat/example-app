@@ -30,7 +30,7 @@ class Admin::LootContainersController < ApplicationController
     if @container.update(container_params)
       redirect_to admin_loot_container_path(@container), notice: "「#{@container.name}」を更新しました。"
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 

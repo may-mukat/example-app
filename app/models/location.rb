@@ -15,14 +15,14 @@ class Location < ApplicationRecord
       images = [near_view, distant_view]
       images.each do |image|
         if image.attached? && !image.content_type.in?(%w(image/jpg image/jpeg image/png image/gif image/webp))
-          errors.add(image.name.to_sym, "で選択されているファイルは不正です。")
+          errors.add(image.name.to_sym, :file_format_different)
         end
       end
     end
 
     def correct_gif
       if animation_gif.attached? && !animation_gif.content_type.in?(%w(image/gif))
-        errors.add(:animation_gif, "で選択されているファイルは不正です。")
+        errors.add(:animation_gif, :file_format_different)
       end
     end
 end
